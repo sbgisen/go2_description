@@ -2,21 +2,6 @@
 <robot name="base" xmlns:xacro="http://www.ros.org/wiki/xacro">
     <!-- Define a macro for base_link -->
     <xacro:macro name="go2_base" params="prefix">
-        <link name="${prefix}base_footprint">
-            <visual>
-                <origin xyz="0 0 0" rpy="0 0 0" />
-                <geometry>
-                    <box size="0.001 0.001 0.001" />
-                </geometry>
-            </visual>
-        </link>
-
-		<joint name="${prefix}base_footprint_joint" type="fixed">
-            <origin xyz="0 0 0" rpy="0 0 0" /> <!-- A Z level is required -->
-            <parent link="${prefix}base_footprint"/>
-            <child link="${prefix}base_link" />
-		</joint>
-        
         <link name="${prefix}base_link">
             <inertial>
                 <origin xyz="0.021112 0 -0.005366" rpy="0 0 0" />
