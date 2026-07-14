@@ -27,10 +27,10 @@
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
                     <xacro:unless value="${reflect}">
-                        <mesh filename="file://$(find go2_description)/meshes/leg/calf.dae" scale="1 1 1"/>
+                        <mesh filename="package://go2_description/meshes/leg/calf.dae" scale="1 1 1"/>
                     </xacro:unless>
                     <xacro:if value="${reflect}">
-                        <mesh filename="file://$(find go2_description)/meshes/leg/calf_mirror.dae" scale="1 1 1"/>
+                        <mesh filename="package://go2_description/meshes/leg/calf_mirror.dae" scale="1 1 1"/>
                     </xacro:if>
                 </geometry>
                 <material
@@ -42,10 +42,10 @@
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
                     <xacro:unless value="${reflect}">
-                        <mesh filename="file://$(find go2_description)/meshes/leg/calf.dae" scale="1 1 1"/>
+                        <mesh filename="package://go2_description/meshes/leg/calf.dae" scale="1 1 1"/>
                     </xacro:unless>
                     <xacro:if value="${reflect}">
-                        <mesh filename="file://$(find go2_description)/meshes/leg/calf_mirror.dae" scale="1 1 1"/>
+                        <mesh filename="package://go2_description/meshes/leg/calf_mirror.dae" scale="1 1 1"/>
                     </xacro:if>
                 </geometry>
             </collision>
