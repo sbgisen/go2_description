@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<robot name="go2" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!-- Import elements (base + legs) -->
+<xacro:include filename="$(find go2_description)/urdf/base/base.urdf.xacro"/>
+<xacro:include filename="$(find go2_description)/urdf/base/leg.urdf.xacro"/>
+
+<!-- Define a macro for the whole Go2 body (base + legs) -->
+<xacro:macro name="go2" params="prefix">
+
+    <!-- Global Properties  -->
+    <xacro:property name="PI" value="3.1415926535897931"/>
+
+    <!-- Leg Allocations -->
+    <xacro:property name="leg_offset_x" value="0.194"/>
+    <xacro:property name="leg_offset_y" value="0.0465"/>
+    <xacro:property name="leg_offset_z" value="0.0"/>
+
+    <!-- Robot base -->
+    <xacro:go2_base prefix="${prefix}"/>
+
+    <!-- Legs -->
+    <xacro:go2_leg prefix="${prefix}FL_" parent="${prefix}base_link" reflect="false"
+            x="${leg_offset_x}"   y="${leg_offset_y}"   z="${leg_offset_z}"
+            roll="0"      pitch="0"   yaw="0"/>
+    <xacro:go2_leg prefix="${prefix}FR_" parent="${prefix}base_link" reflect="true"
+            x="${leg_offset_x}"   y="-${leg_offset_y}"  z="${leg_offset_z}"
+            roll="${PI}"  pitch="0"   yaw="0"/>
+    <xacro:go2_leg prefix="${prefix}RL_" parent="${prefix}base_link" reflect="false"
+            x="-${leg_offset_x}"  y="${leg_offset_y}"   z="${leg_offset_z}"
+            roll="${PI}"  pitch="0"   yaw="${PI}"/>
+    <xacro:go2_leg prefix="${prefix}RR_" parent="${prefix}base_link" reflect="true"
+            x="-${leg_offset_x}"  y="-${leg_offset_y}"  z="${leg_offset_z}"
+            roll="0"      pitch="0"   yaw="${PI}"/>
+
+</xacro:macro>
+
+</robot>

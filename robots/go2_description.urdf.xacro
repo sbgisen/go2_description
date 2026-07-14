@@ -1,17 +1,11 @@
 <?xml version="1.0"?>
 <robot name="go2" xmlns:xacro="http://wiki.ros.org/xacro">
 
-<!-- Import elements (base + legs) -->
-<xacro:include filename="$(find go2_description)/urdf/base/base.urdf.xacro"/>
-<xacro:include filename="$(find go2_description)/urdf/base/leg.urdf.xacro"/>
+<!-- Import the Go2 body (base + legs) -->
+<xacro:include filename="$(find go2_description)/urdf/go2.urdf.xacro"/>
 
 <!-- Global Properties  -->
 <xacro:property name="PI" value="3.1415926535897931"/>
-
-<!-- Leg Allocations -->
-<xacro:property name="leg_offset_x" value="0.194"/>
-<xacro:property name="leg_offset_y" value="0.0465"/>
-<xacro:property name="leg_offset_z" value="0.0"/>
 
 <!-- Arguments -->
 <xacro:arg name="prefix" default=""/>
@@ -45,21 +39,7 @@
   <origin xyz="0.15 0 0.12" rpy="0 0 ${PI/2}"/>
 </xacro:hesai_sensor>
 
-<!-- Robot base -->
-<xacro:go2_base prefix="$(arg prefix)"/>
-
-<!-- Legs -->
-<xacro:go2_leg prefix="FL_" parent="$(arg prefix)base_link" reflect="false" 
-        x="${leg_offset_x}"   y="${leg_offset_y}"   z="${leg_offset_z}" 
-        roll="0"      pitch="0"   yaw="0"/>
-<xacro:go2_leg prefix="FR_" parent="$(arg prefix)base_link" reflect="true" 
-        x="${leg_offset_x}"   y="-${leg_offset_y}"  z="${leg_offset_z}" 
-        roll="${PI}"  pitch="0"   yaw="0"/>
-<xacro:go2_leg prefix="RL_" parent="$(arg prefix)base_link" reflect="false" 
-        x="-${leg_offset_x}"  y="${leg_offset_y}"   z="${leg_offset_z}" 
-        roll="${PI}"  pitch="0"   yaw="${PI}"/>
-<xacro:go2_leg prefix="RR_" parent="$(arg prefix)base_link" reflect="true" 
-        x="-${leg_offset_x}"  y="-${leg_offset_y}"  z="${leg_offset_z}" 
-        roll="0"      pitch="0"   yaw="${PI}"/>
+<!-- Robot body (base + legs) -->
+<xacro:go2 prefix="$(arg prefix)"/>
 
 </robot>
