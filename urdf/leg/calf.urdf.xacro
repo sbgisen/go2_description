@@ -7,7 +7,14 @@
         <xacro:property name="foot_offset_y" value="0.0"/>
         <xacro:property name="foot_offset_z" value="-0.213"/>
 
-        <joint name="${prefix}calf_joint" type="continuous">
+        <xacro:if value="${reflect}">
+            <xacro:property name="y_sign" value="-1"/>
+        </xacro:if>
+        <xacro:unless value="${reflect}">
+            <xacro:property name="y_sign" value="1"/>
+        </xacro:unless>
+
+        <joint name="${prefix}calf_joint" type="revolute">
             <parent link="${parent}"/>
             <child link="${prefix}calf_link"/>
             <xacro:insert_block name="origin" />
@@ -17,11 +24,11 @@
 
         <link name="${prefix}calf_link">
             <inertial>
-                <origin xyz="0 0 0" rpy="0 0 0" />
+                <origin xyz="0.00548 ${-0.000975 * y_sign} -0.115" rpy="0 0 0" />
                 <mass value="0.154" />
                 <inertia
-                    ixx="0.00108"   ixy="3.4E-07"   ixz="1.72E-05"
-                    iyy="0.0011"    iyz="8.28E-06"  izz="3.29E-05" />
+                    ixx="0.00108"   ixy="${3.4E-07 * y_sign}"   ixz="1.72E-05"
+                    iyy="0.0011"    iyz="${8.28E-06 * y_sign}"  izz="3.29E-05" />
             </inertial>
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0" />
