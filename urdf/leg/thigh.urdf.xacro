@@ -3,26 +3,42 @@
 
 <xacro:include filename="$(find go2_description)/urdf/leg/calf.urdf.xacro"/>
     <!-- Define a macro for thigh -->
-    <xacro:macro name="go2_thigh" params="prefix parent *origin reflect">
+    <xacro:macro name="go2_thigh" params="prefix parent *origin front reflect">
         <xacro:property name="calf_offset_x" value="0.0"/>
         <xacro:property name="calf_offset_y" value="0.0"/>
         <xacro:property name="calf_offset_z" value="-0.213"/>
 
-        <joint name="${prefix}thigh_joint" type="continuous">
+        <xacro:if value="${reflect}">
+            <xacro:property name="y_sign" value="-1"/>
+        </xacro:if>
+        <xacro:unless value="${reflect}">
+            <xacro:property name="y_sign" value="1"/>
+        </xacro:unless>
+        <!-- Rear thighs have a wider extension range than front ones -->
+        <xacro:if value="${front}">
+            <xacro:property name="thigh_lower" value="-1.5708"/>
+            <xacro:property name="thigh_upper" value="3.4907"/>
+        </xacro:if>
+        <xacro:unless value="${front}">
+            <xacro:property name="thigh_lower" value="-0.5236"/>
+            <xacro:property name="thigh_upper" value="4.5379"/>
+        </xacro:unless>
+
+        <joint name="${prefix}thigh_joint" type="revolute">
             <parent link="${parent}"/>
             <child link="${prefix}thigh_link"/>
             <xacro:insert_block name="origin" />
             <axis xyz="0 1 0" />
-            <limit lower="-0.5236" upper="4.5379" effort="23.7" velocity="30.1" />
+            <limit lower="${thigh_lower}" upper="${thigh_upper}" effort="23.7" velocity="30.1" />
         </joint>
 
         <link name="${prefix}thigh_link">
             <inertial>
-                <origin xyz="0 0 0" rpy="0 0 0" />
+                <origin xyz="-0.00374 ${-0.0223 * y_sign} -0.0327" rpy="0 0 0" />
                 <mass value="1.152" />
                 <inertia
-                    ixx="0.00584"   ixy="8.72E-05"  ixz="-0.000289"
-                    iyy="0.0058"    iyz="0.000808"  izz="0.00103"  />
+                    ixx="0.00584"   ixy="${8.72E-05 * y_sign}"  ixz="-0.000289"
+                    iyy="0.0058"    iyz="${0.000808 * y_sign}"  izz="0.00103"  />
             </inertial>
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0" />

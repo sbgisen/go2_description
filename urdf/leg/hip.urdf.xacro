@@ -8,9 +8,9 @@
         <xacro:property name="thigh_offset_y" value="0.0955"/>
         <xacro:property name="thigh_offset_z" value="0.0"/>
 
-        <!-- Mirror factors: y_sign flips left/right. The shared hip mesh is
-             reoriented per leg via the visual/collision origin only, so joint
-             frames stay aligned with the base frame. -->
+        <!-- Mirror factors: y_sign flips left/right, x_sign flips front/rear.
+             The shared hip mesh is reoriented per leg via the visual/collision
+             origin only, so joint frames stay aligned with the base frame. -->
         <xacro:if value="${reflect}">
             <xacro:property name="y_sign" value="-1"/>
             <xacro:property name="mesh_roll" value="${pi}"/>
@@ -20,13 +20,15 @@
             <xacro:property name="mesh_roll" value="0"/>
         </xacro:unless>
         <xacro:if value="${front}">
+            <xacro:property name="x_sign" value="1"/>
             <xacro:property name="mesh_pitch" value="0"/>
         </xacro:if>
         <xacro:unless value="${front}">
+            <xacro:property name="x_sign" value="-1"/>
             <xacro:property name="mesh_pitch" value="${pi}"/>
         </xacro:unless>
 
-        <joint name="${prefix}hip_joint" type="continuous">
+        <joint name="${prefix}hip_joint" type="revolute">
             <parent link="${parent}"/>
             <child link="${prefix}hip_link"/>
             <xacro:insert_block name="origin" />
@@ -36,11 +38,11 @@
 
         <link name="${prefix}hip_link">
             <inertial>
-                <origin xyz="0 0 0" rpy="0 0 0" />
-                <mass value="6.921" />
+                <origin xyz="${-0.0054 * x_sign} ${0.00194 * y_sign} -0.000105" rpy="0 0 0" />
+                <mass value="0.678" />
                 <inertia
-                    ixx="0.02448" ixy="0.00012166" ixz="0.0014849"
-                    iyy="0.098077" iyz="-3.12E-05" izz="0.107" />
+                    ixx="0.00048" ixy="${-3.01E-06 * x_sign * y_sign}" ixz="${1.11E-06 * x_sign}"
+                    iyy="0.000884" iyz="${-1.42E-06 * y_sign}" izz="0.000596" />
             </inertial>
             <visual>
                 <origin xyz="0 0 0" rpy="${mesh_roll} ${mesh_pitch} 0" />
@@ -60,7 +62,7 @@
             </collision>
         </link>
 
-        <xacro:go2_thigh prefix="${prefix}" parent="${prefix}hip_link" reflect="${reflect}">
+        <xacro:go2_thigh prefix="${prefix}" parent="${prefix}hip_link" front="${front}" reflect="${reflect}">
             <origin xyz="${thigh_offset_x} ${thigh_offset_y * y_sign} ${thigh_offset_z}" rpy="0 0 0"/>
         </xacro:go2_thigh>
 
