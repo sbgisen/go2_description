@@ -3,7 +3,7 @@
 
   <xacro:macro name="imu_sensor" params="prefix parent *origin">
 
-	  <joint name="${prefix}_joint" type="fixed">
+	  <joint name="${prefix}imu_joint" type="fixed">
 	      <axis xyz="1 0 0"/>
 	      <xacro:insert_block name="origin"/>
 	      <parent link="${parent}"/>
@@ -28,10 +28,10 @@
 	  </link>
 
     <gazebo reference="${prefix}imu_link">
-      <sensor name="${prefix}_sensor" type="imu">
+      <sensor name="${prefix}imu_sensor" type="imu">
         <always_on>1</always_on>
         <update_rate>30</update_rate>
-        <topic>${prefix}/imu/data</topic>
+        <topic>${prefix}imu/data</topic>
       </sensor>
     </gazebo>
 
