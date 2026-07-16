@@ -73,7 +73,6 @@ def generate_launch_description():
         parameters=[{
             'robot_description': robot_description_param,
             'publish_frequency': 100.0,
-            'frame_prefix': prefix,
             }],
         )
     )
