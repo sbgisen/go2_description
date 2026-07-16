@@ -3,15 +3,27 @@
 
 <xacro:include filename="$(find go2_description)/urdf/leg/thigh.urdf.xacro"/>
     <!-- Define a macro for hip -->
-    <xacro:macro name="go2_hip" params="prefix parent *origin reflect">
+    <xacro:macro name="go2_hip" params="prefix parent *origin front reflect">
         <xacro:property name="thigh_offset_x" value="0.0"/>
         <xacro:property name="thigh_offset_y" value="0.0955"/>
         <xacro:property name="thigh_offset_z" value="0.0"/>
-        <xacro:if value="${(prefix == RL_) or (prefix == RR_)}">
-            <xacro:property name="hip_angle" value="${PI}"/>
+
+        <!-- Mirror factors: y_sign flips left/right. The shared hip mesh is
+             reoriented per leg via the visual/collision origin only, so joint
+             frames stay aligned with the base frame. -->
+        <xacro:if value="${reflect}">
+            <xacro:property name="y_sign" value="-1"/>
+            <xacro:property name="mesh_roll" value="${pi}"/>
         </xacro:if>
-        <xacro:unless value="${(prefix == RL_) or (prefix == RR_)}">
-            <xacro:property name="hip_angle" value="0"/>
+        <xacro:unless value="${reflect}">
+            <xacro:property name="y_sign" value="1"/>
+            <xacro:property name="mesh_roll" value="0"/>
+        </xacro:unless>
+        <xacro:if value="${front}">
+            <xacro:property name="mesh_pitch" value="0"/>
+        </xacro:if>
+        <xacro:unless value="${front}">
+            <xacro:property name="mesh_pitch" value="${pi}"/>
         </xacro:unless>
 
         <joint name="${prefix}hip_joint" type="continuous">
@@ -31,7 +43,7 @@
                     iyy="0.098077" iyz="-3.12E-05" izz="0.107" />
             </inertial>
             <visual>
-                <origin xyz="0 0 0" rpy="0 0 0" />
+                <origin xyz="0 0 0" rpy="${mesh_roll} ${mesh_pitch} 0" />
                 <geometry>
                     <mesh filename="package://go2_description/meshes/leg/hip.dae" scale="1 1 1"/>
                 </geometry>
@@ -41,7 +53,7 @@
                 </material>
             </visual>
             <collision>
-                <origin xyz="0 0 0" rpy="0 0 0" />
+                <origin xyz="0 0 0" rpy="${mesh_roll} ${mesh_pitch} 0" />
                 <geometry>
                     <mesh filename="package://go2_description/meshes/leg/hip.dae" scale="1 1 1"/>
                 </geometry>
@@ -49,12 +61,7 @@
         </link>
 
         <xacro:go2_thigh prefix="${prefix}" parent="${prefix}hip_link" reflect="${reflect}">
-            <xacro:if value="${reflect}">
-                <origin xyz="${thigh_offset_x} ${thigh_offset_y} ${thigh_offset_z}" rpy="${PI} ${hip_angle} 0"/>
-            </xacro:if>
-            <xacro:unless value="${reflect}">
-                <origin xyz="${thigh_offset_x} ${thigh_offset_y} ${thigh_offset_z}" rpy="0 ${hip_angle} 0"/>
-            </xacro:unless>
+            <origin xyz="${thigh_offset_x} ${thigh_offset_y * y_sign} ${thigh_offset_z}" rpy="0 0 0"/>
         </xacro:go2_thigh>
 
     </xacro:macro>

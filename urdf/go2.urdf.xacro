@@ -8,30 +8,24 @@
 <!-- Define a macro for the whole Go2 body (base + legs) -->
 <xacro:macro name="go2" params="prefix">
 
-    <!-- Global Properties  -->
-    <xacro:property name="PI" value="3.1415926535897931"/>
-
     <!-- Leg Allocations -->
-    <xacro:property name="leg_offset_x" value="0.194"/>
+    <xacro:property name="leg_offset_x" value="0.1934"/>
     <xacro:property name="leg_offset_y" value="0.0465"/>
     <xacro:property name="leg_offset_z" value="0.0"/>
 
     <!-- Robot base -->
     <xacro:go2_base prefix="${prefix}"/>
 
-    <!-- Legs -->
-    <xacro:go2_leg prefix="${prefix}FL_" parent="${prefix}base_link" reflect="false"
-            x="${leg_offset_x}"   y="${leg_offset_y}"   z="${leg_offset_z}"
-            roll="0"      pitch="0"   yaw="0"/>
-    <xacro:go2_leg prefix="${prefix}FR_" parent="${prefix}base_link" reflect="true"
-            x="${leg_offset_x}"   y="-${leg_offset_y}"  z="${leg_offset_z}"
-            roll="${PI}"  pitch="0"   yaw="0"/>
-    <xacro:go2_leg prefix="${prefix}RL_" parent="${prefix}base_link" reflect="false"
-            x="-${leg_offset_x}"  y="${leg_offset_y}"   z="${leg_offset_z}"
-            roll="${PI}"  pitch="0"   yaw="${PI}"/>
-    <xacro:go2_leg prefix="${prefix}RR_" parent="${prefix}base_link" reflect="true"
-            x="-${leg_offset_x}"  y="-${leg_offset_y}"  z="${leg_offset_z}"
-            roll="0"      pitch="0"   yaw="${PI}"/>
+    <!-- Legs: front/left flags select joint limits, inertia mirroring and meshes.
+         All joint origins are pure translations (no rotation), matching the real robot. -->
+    <xacro:go2_leg prefix="${prefix}FL_" parent="${prefix}base_link" front="true" reflect="false"
+            x="${leg_offset_x}"   y="${leg_offset_y}"   z="${leg_offset_z}"/>
+    <xacro:go2_leg prefix="${prefix}FR_" parent="${prefix}base_link" front="true" reflect="true"
+            x="${leg_offset_x}"   y="-${leg_offset_y}"  z="${leg_offset_z}"/>
+    <xacro:go2_leg prefix="${prefix}RL_" parent="${prefix}base_link" front="false" reflect="false"
+            x="-${leg_offset_x}"  y="${leg_offset_y}"   z="${leg_offset_z}"/>
+    <xacro:go2_leg prefix="${prefix}RR_" parent="${prefix}base_link" front="false" reflect="true"
+            x="-${leg_offset_x}"  y="-${leg_offset_y}"  z="${leg_offset_z}"/>
 
 </xacro:macro>
 
