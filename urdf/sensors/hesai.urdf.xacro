@@ -13,7 +13,7 @@
         <link name="${prefix}lidar_link">
             <visual>
                 <geometry>
-                    <mesh filename="file://$(find go2_description)/meshes/sensors/hesai_XT16.dae" scale="1 1 1"/>
+                    <mesh filename="package://go2_description/meshes/sensors/hesai_XT16.dae" scale="1 1 1"/>
                 </geometry>
                 <material name="">
                     <color rgba="1 1 1 1"/>
@@ -21,7 +21,7 @@
             </visual>
             <collision>
                 <geometry>
-                    <mesh filename="file://$(find go2_description)/meshes/sensors/hesai_XT16.dae" scale="1 1 1"/>
+                    <mesh filename="package://go2_description/meshes/sensors/hesai_XT16.dae" scale="1 1 1"/>
                 </geometry>
             </collision>
             <inertial>
