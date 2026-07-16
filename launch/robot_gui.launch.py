@@ -55,7 +55,7 @@ def generate_launch_description():
         [
             PathJoinSubstitution([FindExecutable(name='xacro')]),
             ' ',
-            PathJoinSubstitution([FindPackageShare('go2_description'), 
+            PathJoinSubstitution([FindPackageShare('go2_description'),
                                   'robots', description_file]),
             ' ',
             'prefix:=', prefix
