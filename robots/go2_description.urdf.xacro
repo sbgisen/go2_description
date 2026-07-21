@@ -9,10 +9,6 @@
 
 <!-- Arguments -->
 <xacro:arg name="prefix" default=""/>
-<xacro:arg name="hesai_lidar" default="false"/>
-<xacro:arg name="livox_lidar" default="false"/>
-<xacro:arg name="realsense" default="false"/>
-<xacro:arg name="name" default="go2"/>
 
 <!-- Sensors -->
 <!-- Built-in sensors (IMU, front camera, L1 lidar) are defined inside the
