@@ -4,9 +4,6 @@
 <!-- Import the Go2 body (base + legs) -->
 <xacro:include filename="$(find go2_description)/urdf/go2.urdf.xacro"/>
 
-<!-- Global Properties  -->
-<xacro:property name="PI" value="3.1415926535897931"/>
-
 <!-- Arguments -->
 <xacro:arg name="prefix" default=""/>
 
@@ -16,7 +13,7 @@
 <!-- hesai lidar -->
 <xacro:include filename="$(find go2_description)/urdf/sensors/hesai.urdf.xacro"/>
 <xacro:hesai_sensor prefix="$(arg prefix)" parent="$(arg prefix)base_link">
-  <origin xyz="0.15 0 0.12" rpy="0 0 ${PI/2}"/>
+  <origin xyz="0.15 0 0.12" rpy="0 0 ${pi/2}"/>
 </xacro:hesai_sensor>
 
 <!-- Robot body (base + legs) -->

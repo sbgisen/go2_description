@@ -7,9 +7,6 @@
 <xacro:include filename="$(find go2_description)/urdf/sensors/imu.urdf.xacro"/>
 <xacro:include filename="$(find go2_description)/urdf/sensors/camera.urdf.xacro"/>
 
-<!-- Required by the camera macro -->
-<xacro:property name="PI" value="${pi}"/>
-
 <!-- Define a macro for the whole Go2 body (base + legs) -->
 <xacro:macro name="go2" params="prefix">
 
