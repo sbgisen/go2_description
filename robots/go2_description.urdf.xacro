@@ -15,24 +15,8 @@
 <xacro:arg name="name" default="go2"/>
 
 <!-- Sensors -->
-<!-- IMU -->
-<xacro:include filename="$(find go2_description)/urdf/sensors/imu.urdf.xacro"/>
-<xacro:imu_sensor prefix="$(arg prefix)" parent="$(arg prefix)base_link">
-  <origin xyz="-0.02557 0 0.04232" rpy="0 0 0"/>
-</xacro:imu_sensor>
-
-<!-- camera -->
-<xacro:include filename="$(find go2_description)/urdf/sensors/camera.urdf.xacro"/>
-<xacro:camera_sensor prefix="$(arg prefix)" parent="$(arg prefix)base_link">
-  <origin xyz="0.325 0 0.045" rpy="0 0 0"/>
-</xacro:camera_sensor>
-
-<!-- radar -->
-<xacro:include filename="$(find go2_description)/urdf/sensors/radar.urdf.xacro"/>
-<xacro:radar_sensor prefix="$(arg prefix)" parent="$(arg prefix)base_link">
-  <origin xyz="0.28945 0 -0.046825" rpy="0 2.8782 0"/>
-</xacro:radar_sensor>
-
+<!-- Built-in sensors (IMU, front camera, L1 lidar) are defined inside the
+     go2 macro. Only optional external sensors are added here. -->
 <!-- hesai lidar -->
 <xacro:include filename="$(find go2_description)/urdf/sensors/hesai.urdf.xacro"/>
 <xacro:hesai_sensor prefix="$(arg prefix)" parent="$(arg prefix)base_link">
