@@ -9,7 +9,7 @@
      go2 macro. Only optional external sensors are added here. -->
 <!-- hesai lidar -->
 <xacro:include filename="$(find go2_description)/urdf/sensors/hesai.urdf.xacro"/>
-<xacro:hesai_sensor prefix="" parent="base_link">
+<xacro:hesai_sensor parent="base_link">
   <origin xyz="0.15 0 0.12" rpy="0 0 ${pi/2}"/>
 </xacro:hesai_sensor>
 

@@ -16,7 +16,7 @@
     <xacro:property name="leg_offset_z" value="0.0"/>
 
     <!-- Robot base -->
-    <xacro:go2_base prefix=""/>
+    <xacro:go2_base/>
 
     <!-- Legs: front/left flags select joint limits, inertia mirroring and meshes.
          All joint origins are pure translations (no rotation), matching the real robot. -->
