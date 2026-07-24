@@ -4,13 +4,13 @@
     <!-- Hesai Sensor Macro -->
     <xacro:macro name="hesai_sensor" params="parent *origin">
 
-        <joint name="lidar_joint" type="fixed">
+        <joint name="hesai_lidar_joint" type="fixed">
             <parent link="${parent}"/>
-            <child link="lidar_link"/>
+            <child link="hesai_lidar_link"/>
             <xacro:insert_block name="origin" />
         </joint>
 
-        <link name="lidar_link">
+        <link name="hesai_lidar_link">
             <visual>
                 <geometry>
                     <mesh filename="package://go2_description/meshes/sensors/hesai_XT16.dae" scale="1 1 1"/>
@@ -31,12 +31,12 @@
             </inertial>
         </link>
 
-        <gazebo reference="lidar_link">
+        <gazebo reference="hesai_lidar_link">
             <sensor name='gpu_lidar' type='gpu_lidar'>
-            <pose relative_to="lidar_link">0 0 0 0 0 0</pose>
-            <topic>lidar_sensor</topic>
+            <pose relative_to="hesai_lidar_link">0 0 0 0 0 0</pose>
+            <topic>hesai_lidar_sensor</topic>
             <update_rate>20</update_rate>
-            <gz_frame_id>lidar_link</gz_frame_id>
+            <gz_frame_id>hesai_lidar_link</gz_frame_id>
             <lidar>
                 <scan>
                 <horizontal>
