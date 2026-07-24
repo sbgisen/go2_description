@@ -8,7 +8,7 @@
 <xacro:include filename="$(find go2_description)/urdf/sensors/camera.urdf.xacro"/>
 
 <!-- Define a macro for the whole Go2 body (base + legs) -->
-<xacro:macro name="go2" params="prefix">
+<xacro:macro name="go2">
 
     <!-- Leg Allocations -->
     <xacro:property name="leg_offset_x" value="0.1934"/>
@@ -16,35 +16,34 @@
     <xacro:property name="leg_offset_z" value="0.0"/>
 
     <!-- Robot base -->
-    <xacro:go2_base prefix="${prefix}"/>
+    <xacro:go2_base prefix=""/>
 
     <!-- Legs: front/left flags select joint limits, inertia mirroring and meshes.
          All joint origins are pure translations (no rotation), matching the real robot. -->
-    <xacro:go2_leg prefix="${prefix}FL_" parent="${prefix}base_link" front="true" reflect="false"
+    <xacro:go2_leg prefix="FL_" parent="base_link" front="true" reflect="false"
             x="${leg_offset_x}"   y="${leg_offset_y}"   z="${leg_offset_z}"/>
-    <xacro:go2_leg prefix="${prefix}FR_" parent="${prefix}base_link" front="true" reflect="true"
+    <xacro:go2_leg prefix="FR_" parent="base_link" front="true" reflect="true"
             x="${leg_offset_x}"   y="-${leg_offset_y}"  z="${leg_offset_z}"/>
-    <xacro:go2_leg prefix="${prefix}RL_" parent="${prefix}base_link" front="false" reflect="false"
+    <xacro:go2_leg prefix="RL_" parent="base_link" front="false" reflect="false"
             x="-${leg_offset_x}"  y="${leg_offset_y}"   z="${leg_offset_z}"/>
-    <xacro:go2_leg prefix="${prefix}RR_" parent="${prefix}base_link" front="false" reflect="true"
+    <xacro:go2_leg prefix="RR_" parent="base_link" front="false" reflect="true"
             x="-${leg_offset_x}"  y="-${leg_offset_y}"  z="${leg_offset_z}"/>
 
     <!-- Built-in IMU. The go2_ prefix avoids clashing with external IMUs. -->
-    <xacro:imu_sensor prefix="${prefix}go2_" parent="${prefix}base_link">
+    <xacro:imu_sensor prefix="go2_" parent="base_link">
         <origin xyz="-0.02557 0 0.04232" rpy="0 0 0"/>
     </xacro:imu_sensor>
 
     <!-- Built-in front camera. The go2_ prefix avoids clashing with external
          cameras. -->
-    <xacro:camera_sensor prefix="${prefix}go2_" parent="${prefix}base_link">
+    <xacro:camera_sensor prefix="go2_" parent="base_link">
         <origin xyz="0.325 0 0.045" rpy="0 0 0"/>
     </xacro:camera_sensor>
 
-    <!-- Unitree 4D LiDAR-L1. Frame names are fixed by the Go2 firmware,
-         so no prefix is applied. -->
+    <!-- Unitree 4D LiDAR-L1. Frame names are fixed by the Go2 firmware. -->
     <link name="utlidar_lidar"/>
     <joint name="base_to_utlidar_lidar" type="fixed">
-        <parent link="${prefix}base_link"/>
+        <parent link="base_link"/>
         <child link="utlidar_lidar"/>
         <origin xyz="0.28945 0 -0.046825" rpy="0 2.8782 0"/>
     </joint>
