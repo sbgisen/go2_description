@@ -4,19 +4,16 @@
 <!-- Import the Go2 body (base + legs) -->
 <xacro:include filename="$(find go2_description)/urdf/go2.urdf.xacro"/>
 
-<!-- Arguments -->
-<xacro:arg name="prefix" default=""/>
-
 <!-- Sensors -->
 <!-- Built-in sensors (IMU, front camera, L1 lidar) are defined inside the
      go2 macro. Only optional external sensors are added here. -->
 <!-- hesai lidar -->
 <xacro:include filename="$(find go2_description)/urdf/sensors/hesai.urdf.xacro"/>
-<xacro:hesai_sensor prefix="$(arg prefix)" parent="$(arg prefix)base_link">
+<xacro:hesai_sensor parent="base_link">
   <origin xyz="0.15 0 0.12" rpy="0 0 ${pi/2}"/>
 </xacro:hesai_sensor>
 
 <!-- Robot body (base + legs) -->
-<xacro:go2 prefix="$(arg prefix)"/>
+<xacro:go2/>
 
 </robot>

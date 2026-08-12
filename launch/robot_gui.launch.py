@@ -40,16 +40,7 @@ def generate_launch_description():
             description='URDF/XACRO description file with the robot.',
         )
     )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            'prefix',
-            default_value='',
-            description='Prefix to be added to the robot description.',
-        )
-    )
-
     description_file = LaunchConfiguration('description_file')
-    prefix = LaunchConfiguration('prefix')
 
     robot_description_content = Command(
         [
@@ -57,8 +48,6 @@ def generate_launch_description():
             ' ',
             PathJoinSubstitution([FindPackageShare('go2_description'),
                                   'robots', description_file]),
-            ' ',
-            'prefix:=', prefix
         ]
     )
 
