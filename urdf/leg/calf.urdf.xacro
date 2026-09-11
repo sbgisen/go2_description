@@ -40,10 +40,6 @@
                         <mesh filename="package://go2_description/meshes/leg/calf_mirror.dae" scale="1 1 1"/>
                     </xacro:if>
                 </geometry>
-                <material
-                    name="">
-                    <color rgba="1 1 1 1" />
-                </material>
             </visual>
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0" />
